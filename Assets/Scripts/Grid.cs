@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Grid : MonoBehaviour
 {
-
+    public Transform Player;
     public LayerMask unwalkableMask;
     public Vector2 gridWorldSize;
     public float nodeRadius;
@@ -55,9 +55,12 @@ public class Grid : MonoBehaviour
 
         if (grid != null)
         {
+            Node playerNode = NodeFromWorldPoint(Player.position);
             foreach (Node n in grid)
             {
                 Gizmos.color = (n.walkable) ? Color.white : Color.red;
+                if (playerNode == n)
+                    Gizmos.color = Color.green;
                 Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter - .1f));
             }
         }
