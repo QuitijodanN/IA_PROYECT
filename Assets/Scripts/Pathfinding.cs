@@ -4,11 +4,37 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using System.Diagnostics;
 
+<<<<<<< Updated upstream
 public class PathFinding : MonoBehaviour
 {
     public Transform seeker, target;
     
     Grid grid;
+=======
+public class Pathfinding : MonoBehaviour {
+
+	PathRequestManager requestManager;
+	Grid grid;
+
+	void Awake() {
+		requestManager = GetComponent<PathRequestManager>();
+		grid = GetComponent<Grid>();
+	}
+
+
+	public void StartFindPath(Vector3 startPos, Vector3 targetPos) {
+		StartCoroutine(FindPath(startPos, targetPos));
+	}
+
+	public Vector3 GetRandom()
+	{
+		float pos = UnityEngine.Random.Range(0,grid.walkablePos.Count);
+
+		return grid.walkablePos[Mathf.RoundToInt(pos)];
+    }
+	
+	IEnumerator FindPath(Vector3 startPos, Vector3 targetPos) {
+>>>>>>> Stashed changes
 
     void Awake()
     {

@@ -10,8 +10,17 @@ public class Grid : MonoBehaviour
     public float nodeRadius;
     Node[,] grid;
 
+<<<<<<< Updated upstream
     float nodeDiameter;
     int gridSizeX, gridSizeY;
+=======
+	public bool displayGridGizmos;
+	public LayerMask unwalkableMask;
+	public Vector2 gridWorldSize;
+	public float nodeRadius;
+	public List<Vector3> walkablePos;
+	Node[,] grid;
+>>>>>>> Stashed changes
 
     void Start()
     {
@@ -33,6 +42,7 @@ public class Grid : MonoBehaviour
                 int checkX = node.gridX + x;
                 int checkY = node.gridY + y;
 
+<<<<<<< Updated upstream
                 if (checkX >= 0 && checkX < gridSizeX && checkY >= 0 && checkX < gridSizeY)
                 {
                     neighbours.Add(grid[checkX,checkY]);
@@ -41,6 +51,18 @@ public class Grid : MonoBehaviour
         }
         return neighbours;
     }
+=======
+		for (int x = 0; x < gridSizeX; x ++) {
+			for (int y = 0; y < gridSizeY; y ++) {
+				Vector3 worldPoint = worldBottomLeft + Vector3.right * (x * nodeDiameter + nodeRadius) + Vector3.forward * (y * nodeDiameter + nodeRadius);
+				bool walkable = !(Physics.CheckSphere(worldPoint,nodeRadius,unwalkableMask));
+				if (walkable) 
+					walkablePos.Add(worldPoint);
+				grid[x,y] = new Node(walkable,worldPoint, x,y);
+			}
+		}
+	}
+>>>>>>> Stashed changes
 
     void CreateGrid()
     {
