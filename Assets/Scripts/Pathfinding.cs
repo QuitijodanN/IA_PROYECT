@@ -17,8 +17,14 @@ public class Pathfinding : MonoBehaviour {
 	public void StartFindPath(Vector3 startPos, Vector3 targetPos) {
 		StartCoroutine(FindPath(startPos,targetPos));
 	}
-	
-	IEnumerator FindPath(Vector3 startPos, Vector3 targetPos) {
+    public Vector3 GetRandom()
+    {
+        float pos = UnityEngine.Random.Range(0, grid.walkablePos.Count);
+
+        return grid.walkablePos[Mathf.RoundToInt(pos)];
+    }
+
+    IEnumerator FindPath(Vector3 startPos, Vector3 targetPos) {
 
 		Vector3[] waypoints = new Vector3[0];
 		bool pathSuccess = false;

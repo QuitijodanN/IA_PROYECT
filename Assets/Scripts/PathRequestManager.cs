@@ -17,8 +17,13 @@ public class PathRequestManager : MonoBehaviour {
 		instance = this;
 		pathfinding = GetComponent<Pathfinding>();
 	}
+    public static void RandomsRequestPath(Vector3 pathStart, Action<Vector3[], bool> callback)
+    {
+        Vector3 pathEnd = instance.pathfinding.GetRandom();
+        RequestPath(pathStart, pathEnd, callback);
+    }
 
-	public static void RequestPath(Vector3 pathStart, Vector3 pathEnd, Action<Vector3[], bool> callback) {
+    public static void RequestPath(Vector3 pathStart, Vector3 pathEnd, Action<Vector3[], bool> callback) {
 		PathRequest newRequest = new PathRequest(pathStart,pathEnd,callback);
 		instance.pathRequestQueue.Enqueue(newRequest);
 		instance.TryProcessNext();

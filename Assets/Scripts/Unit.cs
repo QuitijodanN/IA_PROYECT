@@ -94,26 +94,28 @@ public class Unit : MonoBehaviour {
 
 	IEnumerator FollowPath() {
 		if (animator.GetBool("Detectado")) {
-            Vector3 currentWaypoint = path[0];
-            while (targetIndex < path.Length)
-            {
-                if (transform.position == currentWaypoint)
+			if (path.Length > 0) {
+                Vector3 currentWaypoint = path[0];
+                while (targetIndex < path.Length)
                 {
-                    targetIndex++;
-                    if (targetIndex >= path.Length)
+                    if (transform.position == currentWaypoint)
                     {
+                        targetIndex++;
+                        if (targetIndex >= path.Length)
+                        {
 
-                        yield break;
+                            yield break;
+                        }
+                        currentWaypoint = path[targetIndex];
+
                     }
-                    currentWaypoint = path[targetIndex];
 
-                }
-
-                /* Debug.Log(currentWaypoint.x);
-                 Debug.Log(currentWaypoint.y);
-                 Debug.Log(currentWaypoint.z);*/
-                transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
-                yield return null;
+                    /* Debug.Log(currentWaypoint.x);
+                     Debug.Log(currentWaypoint.y);
+                     Debug.Log(currentWaypoint.z);*/
+                    transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
+                    yield return null;
+                }            
 
             }
         }
