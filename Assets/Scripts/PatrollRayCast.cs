@@ -16,9 +16,11 @@ public class PatrollRayCast : MonoBehaviour
     Vector3[] path;
     int targetIndex;
     bool near = false;
+    Animator animator;
 
     void Start()
     {
+        animator = GetComponent<Animator>();
         target = GameObject.FindGameObjectWithTag("Player").transform;
         // Iniciar el cambio de dirección aleatorio
         StartCoroutine(ChangeDirectionRoutine());
@@ -30,6 +32,8 @@ public class PatrollRayCast : MonoBehaviour
         while (true) {
             if (seek && !near)
             {
+                animator.speed = 3;
+                speed = 2;
                 PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
             }
             yield return new WaitForSeconds(1);
@@ -76,6 +80,8 @@ public class PatrollRayCast : MonoBehaviour
                 else
                 {
                     seek = false;
+                    animator.speed = 1.5F;
+                    speed = 0.5F;
                 }
             }
 
