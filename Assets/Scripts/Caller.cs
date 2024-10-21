@@ -12,16 +12,6 @@ public class Caller : MonoBehaviour
         mushrooms = GameObject.FindGameObjectsWithTag("Mushroom");
         target = GameObject.FindWithTag("Player").transform;
     }
-    void OnTriggerStay(Collider other)
-    {
-        if (other.transform == target.transform)
-        {
-            foreach (GameObject mush in mushrooms) {
-                mush.GetComponent<PatrollRayCast>().DirectionTarget();
-                mush.GetComponent<PatrollRayCast>().seek = true;
-            }
-        }
-    }
     
     void OnTriggerEnter(Collider other)
     {
@@ -30,6 +20,17 @@ public class Caller : MonoBehaviour
             foreach (GameObject mush in mushrooms)
             {
                 mush.GetComponent<PatrollRayCast>().seek = true;
+                mush.GetComponent<PatrollRayCast>().caller = true;
+            }
+        }
+    }
+    void OnTriggerExit(Collider other)
+    {
+        if (other.transform == target.transform)
+        {
+            foreach (GameObject mush in mushrooms)
+            {
+                mush.GetComponent<PatrollRayCast>().caller = false;
             }
         }
     }

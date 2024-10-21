@@ -6,6 +6,7 @@ public class PatrollRayCast : MonoBehaviour
 {
     public float speed = 0.5f; // Velocidad de movimiento hacia adelante
     public bool seek = false;
+    public bool caller = false;
     public float rayDistance = 100f; // Distancia del rayo
     public float rotationSpeed = 2f; // Velocidad de rotación suave
     public LayerMask targetLayer; // Para filtrar el raycast por capas (opcional)
@@ -21,30 +22,31 @@ public class PatrollRayCast : MonoBehaviour
         target = GameObject.FindGameObjectWithTag("Player").transform;
         // Iniciar el cambio de dirección aleatorio
         StartCoroutine(ChangeDirectionRoutine());
+        StartCoroutine(SeekRoutine());
     }
 
-    void Update()
+    IEnumerator SeekRoutine()
     {
-        if (seek && !near)
-        {
-            PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
+        while (true) {
+            if (seek && !near)
+            {
+                PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
+            }
+            yield return new WaitForSeconds(1);
         }
     }
-    public void DirectionTarget()
-    {
-        path = new Vector3[0];
-        PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
-    }
-    
+
     IEnumerator ChangeDirectionRoutine()
     {
         while (true)
         {
-            CastMultipleRays();
-            // Cambiar la dirección de movimiento aleatoriamente
-            ChangeDirection();
+            if (!caller)
+            {
+                CastMultipleRays();
+                // Cambiar la dirección de movimiento aleatoriamente
+                ChangeDirection();
+            }
             // Esperar el tiempo definido antes de cambiar la dirección nuevamente
-
             yield return new WaitForSeconds(Random.Range(5,7));
         }
     }
