@@ -17,8 +17,8 @@ public class Caller : MonoBehaviour
         if (other.transform == target.transform)
         {
             foreach (GameObject mush in mushrooms) {
+                mush.GetComponent<PatrollRayCast>().DirectionTarget();
                 mush.GetComponent<PatrollRayCast>().seek = true;
-                mush.GetComponent<PatrollRayCast>().next = false;
             }
         }
     }
@@ -30,17 +30,6 @@ public class Caller : MonoBehaviour
             foreach (GameObject mush in mushrooms)
             {
                 mush.GetComponent<PatrollRayCast>().seek = true;
-                mush.GetComponent<PatrollRayCast>().next = false;
-            }
-        }
-    }
-    void OnTriggerExit(Collider other)
-    {
-        if (other.transform == target.transform)
-        {
-            foreach (GameObject mush in mushrooms)
-            {
-                mush.GetComponent<PatrollRayCast>().next = true;
             }
         }
     }

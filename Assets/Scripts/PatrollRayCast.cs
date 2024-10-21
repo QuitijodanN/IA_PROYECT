@@ -6,7 +6,6 @@ public class PatrollRayCast : MonoBehaviour
 {
     public float speed = 0.5f; // Velocidad de movimiento hacia adelante
     public bool seek = false;
-    public bool next = true;
     public float rayDistance = 100f; // Distancia del rayo
     public float rotationSpeed = 2f; // Velocidad de rotación suave
     public LayerMask targetLayer; // Para filtrar el raycast por capas (opcional)
@@ -31,6 +30,11 @@ public class PatrollRayCast : MonoBehaviour
             PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
         }
     }
+    public void DirectionTarget()
+    {
+        path = new Vector3[0];
+        PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
+    }
     
     IEnumerator ChangeDirectionRoutine()
     {
@@ -40,7 +44,8 @@ public class PatrollRayCast : MonoBehaviour
             // Cambiar la dirección de movimiento aleatoriamente
             ChangeDirection();
             // Esperar el tiempo definido antes de cambiar la dirección nuevamente
-            yield return new WaitForSeconds(5);
+
+            yield return new WaitForSeconds(Random.Range(5,7));
         }
     }
     void CastMultipleRays()
@@ -66,7 +71,7 @@ public class PatrollRayCast : MonoBehaviour
                     seek = true;
                     return;
                 }
-                else if (next)
+                else
                 {
                     seek = false;
                 }
@@ -144,6 +149,26 @@ public class PatrollRayCast : MonoBehaviour
         if (other.transform == target)
         {
             near = false;
+        }
+    }
+    public void OnDrawGizmos()
+    {
+        if (path != null)
+        {
+            for (int i = targetIndex; i < path.Length; i++)
+            {
+                Gizmos.color = Color.white;
+                Gizmos.DrawCube(path[i], Vector3.one);
+
+                if (i == targetIndex)
+                {
+                    Gizmos.DrawLine(transform.position, path[i]);
+                }
+                else
+                {
+                    Gizmos.DrawLine(path[i - 1], path[i]);
+                }
+            }
         }
     }
 }

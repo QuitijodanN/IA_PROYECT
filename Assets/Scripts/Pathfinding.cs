@@ -92,10 +92,11 @@ public class Pathfinding : MonoBehaviour {
 		
 		for (int i = 1; i < path.Count; i ++) {
 			Vector2 directionNew = new Vector2(path[i-1].gridX - path[i].gridX,path[i-1].gridY - path[i].gridY);
-			if (directionNew != directionOld) {
+			/*if (directionNew != directionOld) {
 				waypoints.Add(path[i].worldPosition);
-			}
-			directionOld = directionNew;
+			}*/
+            waypoints.Add(path[i].worldPosition);
+            directionOld = directionNew;
 		}
 		return waypoints.ToArray();
 	}
