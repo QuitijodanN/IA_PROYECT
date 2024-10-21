@@ -20,7 +20,7 @@ public class ChestManager : MonoBehaviour
     {
         counter += sum;
         score.ChangeImage(counter);
-        if (counter >= 1) 
+        if (counter >= 3) 
         {
             SceneManager.LoadScene("Win");
         }
