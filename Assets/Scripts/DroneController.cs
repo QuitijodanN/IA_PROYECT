@@ -14,12 +14,15 @@ public class DroneController : MonoBehaviour
 
     public Light pointLight;  // Referencia a la luz del dron
     private Color originalColor;
+    private Quaternion initialRotation; // Guardar la rotación inicial
 
     void Start()
     {
         if (pointLight != null) {
             originalColor = pointLight.color;  // Guardamos el color original de la luz
         }
+
+        initialRotation = transform.localRotation;  // Guardar la rotación original
         StartCoroutine(RotateDrone());
     }
 
@@ -51,7 +54,8 @@ public class DroneController : MonoBehaviour
                     }
                 }
 
-                transform.localRotation = Quaternion.Euler(0, currentRotation, 0);
+                // Aplicar rotación relativa a la rotación inicial
+                transform.localRotation = initialRotation * Quaternion.Euler(0, currentRotation, 0);
             }
             yield return null;  // Esperar un frame antes de continuar
         }

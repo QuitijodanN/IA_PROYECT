@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Caller : MonoBehaviour
 {
-    public GameObject[] mushrooms;
-    public Transform target;
+    private GameObject[] mushrooms;
+    private Transform target;
 
     void Start()
     {
