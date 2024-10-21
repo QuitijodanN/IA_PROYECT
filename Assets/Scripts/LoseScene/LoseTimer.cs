@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class WinTimer : MonoBehaviour
+public class LoseTimer : MonoBehaviour
 {
-
     void Start()
     {
         StartCoroutine(timer());
