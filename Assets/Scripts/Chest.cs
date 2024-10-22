@@ -22,7 +22,7 @@ public class Chest : MonoBehaviour
         {
             manager.AddCounter();
 
-            audioSource.Play();
+            //audioSource.Play();
             
             Destroy(gameObject);
         }
