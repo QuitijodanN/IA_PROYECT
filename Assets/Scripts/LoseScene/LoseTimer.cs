@@ -14,6 +14,6 @@ public class LoseTimer : MonoBehaviour
     IEnumerator timer()
     {
         yield return new WaitForSeconds(3f);
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 }
